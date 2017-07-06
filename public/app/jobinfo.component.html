@@ -1,0 +1,14 @@
+<div *ngIf="jobInfo">
+  <job [job]="jobInfo.job"></job>
+  <br>
+  <div *ngIf="jobInfo.nodes.length > 0">
+    <div class="gangliaLinks">
+     <h2>Ganglia links</h2>
+     <span *ngFor="let node of jobInfo.nodes; let ix=index"><a href="{{jobInfo.gangliaURLs[ix]}}" target="_blank">{{node}}</a><br></span>
+   </div>
+  </div>
+</div>
+<div *ngIf="!jobInfo">
+  <h2>Error</h2>
+  <p>Job {{paramJobId}} does not exist on {{paramSystem}}</p>
+</div>

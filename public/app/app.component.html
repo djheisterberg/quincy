@@ -1,0 +1,14 @@
+<h1>{{title}}</h1>
+<div>
+   <div *ngIf="needsAuthentication">
+      <span><label>Username: </label><input [(ngModel)]="username" placeholder="username" /></span>
+      <span><label>Password: </label><input [(ngModel)]="password" type="password" placeholder="password" /></span>
+   </div>
+  	<div>
+	   <span><label>Job ID: </label><input [(ngModel)]="jobId" (keydown.enter)="submit()" placeholder="job-id" /></span>
+	   <span><label>System: </label><input [(ngModel)]="system" (keydown.enter)="submit()" placeholder="system" /></span>
+     <span><button class="pure-button" (click)="submit()">Submit</button></span>
+     <br>
+   </div>
+</div>
+<router-outlet></router-outlet>
