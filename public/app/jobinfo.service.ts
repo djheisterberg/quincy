@@ -6,13 +6,19 @@ import 'rxjs/add/operator/toPromise';
 import { JobInfo } from './jobinfo';
 import { Job } from './job';
 
+interface SysMap {
+    [key: string]: string;
+}
+
 @Injectable()
 export class JobInfoService {
 //  private baseURL = "http://localhost:4204/jobinfo-rest/jobinfo/rest";
+    static sysMap: SysMap = { 'ruby': 'Ruby', 'owens': 'Owens', 'oak': 'Oakley'};
     private baseURL = "http://localhost:1337";
 
     constructor( private http: Http ) {
     }
+  
 
     getJobInfo( username: string, password: string, id: string, system: string ): Promise<JobInfo> {
        //let url = this.baseURL + `?id=${id}&system=${system}`;
@@ -67,7 +73,7 @@ export class JobInfoService {
       let baseQuery = "?r=hour&tab=m&mc=2&metric_group=ALLGROUPS";
 
       //Make system's first letter upper case. rest should be undercase.
-      let system = job.system.substr(0,1).toUpperCase() + job.system.substr(1);
+      let system = JobInfoService.sysMap[job.system];     
           let urls: string[] = [];
           for (let i = 0; i < nodes.length; i++) {
             let url = gangliaBase + baseQuery;
