@@ -40,7 +40,7 @@ app.get(BASE_URI + '/job/:system/:id', function(req, res) {
       if (err) {
          res.status(500).send(err);
       } else {
-        cnx.query('select * from jobs where jobid like ? and system=?', [jid + '%', system], function(err, results, fields) {
+        cnx.query('select * from Jobs where jobid like ? and system=?', [jid + '%', system], function(err, results, fields) {
           //cnx.query('select * from jobs limit 1 ', [jid + '%', system], function(err, results, fields) {
             if (err) {
                res.status(500).send(err);
