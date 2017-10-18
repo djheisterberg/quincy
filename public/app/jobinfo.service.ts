@@ -14,11 +14,11 @@ interface SysMap {
 export class JobInfoService {
 //  private baseURL = "http://localhost:4204/jobinfo-rest/jobinfo/rest";
     static sysMap: SysMap = { 'ruby': 'Ruby', 'owens': 'Owens', 'oak': 'Oakley'};
-    private baseURL = "http://localhost:1337";
+    private baseURL = '';
 
     constructor( private http: Http ) {
+      this.baseURL = (window.location.origin + window.location.pathname).slice(0, -1);
     }
-  
 
     getJobInfo( username: string, password: string, id: string, system: string ): Promise<JobInfo> {
        //let url = this.baseURL + `?id=${id}&system=${system}`;
@@ -79,8 +79,8 @@ export class JobInfoService {
             let url = gangliaBase + baseQuery;
             url += "&c="  + system;
             url += "&h="  + nodes[i] + defaultDomain;
-            url += "&cs=" + encodeURIComponent(JobInfoService.getDate(job.start_ts));
-            url += "&ce=" + encodeURIComponent(JobInfoService.getDate(job.end_ts));
+            url += "&cs=" + encodeURIComponent(JobInfoService.getDate((parseInt(job.start_ts, 10) - 300).toString()));
+            url += "&ce=" + encodeURIComponent(JobInfoService.getDate((parseInt(job.end_ts, 10) + 300).toString()));
             console.log(url);
             urls[i] = url;
             console.log("urls array: " + urls);
