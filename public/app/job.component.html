@@ -29,68 +29,44 @@
 			<td>{{job.nproc}}</td>
 		</tr>
 		<tr>
-			<td>mppe</td>
-			<td>{{job.mppe}}</td>
-		</tr>
-		<tr>
-			<td>mppssp</td>
-			<td>{{job.mppssp}}</td>
-		</tr>
-		<tr>
 			<td>nodect</td>
 			<td>{{job.nodect}}</td>
 		</tr>
-    <tr>
-      <td>nodes</td>
-      <td>{{job.nodes}}</td>
-    </tr>
+		<tr>
+			<td>nodes</td>
+			<td>{{job.nodes}}</td>
+		</tr>
+		<tr>
+			<td>ngpus</td>
+			<td>{{job.ngpus}}</td>
+		</tr>
 		<tr>
 			<td>feature</td>
 			<td>{{job.feature}}</td>
-		</tr>
-		<tr>
-			<td>gres</td>
-			<td>{{job.gres}}</td>
-		</tr>
-		<tr>
-			<td>gattr</td>
-			<td>{{job.gattr}}</td>
 		</tr>
 		<tr>
 			<td>queue</td>
 			<td>{{job.queue}}</td>
 		</tr>
 		<tr>
-			<td>qos</td>
-			<td>{{job.qos}}</td>
+			<td>submit_date</td>
+			<td>{{job.submit_ts*1000 | date:"medium"}}</td>
 		</tr>
 		<tr>
-			<td>submit_ts</td>
-			<td>{{job.submit_ts}}</td>
+			<td>start_date</td>
+			<td>{{job.start_ts*1000 | date:"medium"}}</td>
 		</tr>
 		<tr>
-			<td>start_ts</td>
-			<td>{{job.start_ts}}</td>
+			<td>end_date</td>
+			<td>{{job.end_ts*1000 | date:"medium"}}</td>
 		</tr>
-    <tr>
-      <td>end_ts</td>
-      <td>{{job.end_ts}}</td>
-    </tr>
-    <tr>
-      <td>start_date</td>
-      <td>{{job.start_date}}</td>
-    </tr>
-    <tr>
-      <td>end_date</td>
-      <td>{{job.end_date}}</td>
-    </tr>
 		<tr>
 			<td>cput_req</td>
 			<td>{{job.cput_req}}</td>
 		</tr>
 		<tr>
 			<td>cput</td>
-			<td>{{job.cput}}</td>
+			<td>{{job.cput_sec}}</td>
 		</tr>
 		<tr>
 			<td>walltime_req</td>
@@ -98,7 +74,7 @@
 		</tr>
 		<tr>
 			<td>walltime</td>
-			<td>{{job.walltime}}</td>
+			<td>{{job.walltime_sec}}</td>
 		</tr>
 		<tr>
 			<td>mem_req</td>
