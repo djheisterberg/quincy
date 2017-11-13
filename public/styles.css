@@ -29,6 +29,10 @@ td {
   max-width: 750px;
 }
 
+td pre {
+  text-align: left;
+}
+
 th {
   word-wrap: break-word;
   max-width: 750px;
