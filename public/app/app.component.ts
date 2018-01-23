@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 import { Router } from '@angular/router';
+import { ActivatedRoute, Params, ParamMap } from '@angular/router';
 
 import { Job } from './job';
 import { JobInfo } from './jobinfo';
@@ -14,7 +15,11 @@ import { JobInfoService } from './jobinfo.service';
 export class AppComponent {
     name = 'JobInfo';
     title = "Job Info";
-
+    systems = [
+        { value: 'owens', display: 'Owens'},
+        { value: 'oak', display: 'Oakley'},
+        { value: 'ruby', display: 'Ruby'}
+    ]
     needsAuthentication = false;
     notFound = false;
 
@@ -28,11 +33,24 @@ export class AppComponent {
 
     jobInfo: JobInfo;
 
-    constructor( private jobInfoSvc: JobInfoService, private router: Router ) {
+    constructor( private jobInfoSvc: JobInfoService, private router: Router, private route:ActivatedRoute) {
+        jobInfoSvc.system$.subscribe(
+            system => {
+                this.system = system;
+            });
+        jobInfoSvc.jobId$.subscribe(
+            jobId => {
+                this.jobId = jobId;
+            }); 
+        //this.system = 'owens'
+    }
+
+    ngOnInit(): void {
+        console.log("app component loaded");
     }
 
     submit(): void {
-      this.router.navigate([`./${this.system}/${this.jobId}`])
+      this.router.navigate([`./${this.system}/${this.jobId}`]);
     }
 
     handleError( response: Response | any ) {

@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get(BASE_URI + '/job/:system/:id', function(req, res) {
+app.get('/job/:system/:id', function(req, res) {
    var system = req.params.system;
    var id = req.params.id
    var jid = id + '.' + system;
@@ -64,8 +64,10 @@ app.get(BASE_URI + '/job/:system/:id', function(req, res) {
    });
 });
 
-
 app.use(express.static('public'));
+app.use('/:system/:id', function(req, res) {
+    res.sendFile('index.html', { root: __dirname + '/public/' });
+});
 
 var httpServer = http.createServer(app).listen(PORT, function() {
 });

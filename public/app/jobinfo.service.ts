@@ -6,6 +6,8 @@ import 'rxjs/add/operator/toPromise';
 import { JobInfo } from './jobinfo';
 import { Job } from './job';
 
+import { Subject } from 'rxjs/Subject';
+
 interface SysMap {
     [key: string]: string;
 }
@@ -13,15 +15,30 @@ interface SysMap {
 @Injectable()
 export class JobInfoService {
 //  private baseURL = "http://localhost:4204/jobinfo-rest/jobinfo/rest";
+    private systemSource = new Subject<string>();
+    private jobIdSource = new Subject<string>();
+
+    system$ = this.systemSource.asObservable();
+    jobId$ = this.jobIdSource.asObservable();
+
+    setSystem(system: string) {
+      this.systemSource.next(system);
+    }
+
+    setJobId(jobId: string) {
+      this.jobIdSource.next(jobId); 
+    }
+
     static sysMap: SysMap = { 'ruby': 'Ruby', 'owens': 'Owens', 'oak': 'Oakley'};
     private baseURL = '';
 
     constructor( private http: Http ) {
-      this.baseURL = (window.location.origin + window.location.pathname).slice(0, -1);
+      this.baseURL = (window.location.origin);
     }
 
     getJobInfo( username: string, password: string, id: string, system: string ): Promise<JobInfo> {
        //let url = this.baseURL + `?id=${id}&system=${system}`;
+       console.log("Fetching job info from db");
        let url = this.baseURL + `/job/${system}/${id}`
 
         let headers = ( username && password ) ? new Headers( { 'Authorization': 'Basic ' + btoa( username + ":" + password ) }) : null;

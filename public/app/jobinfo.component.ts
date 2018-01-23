@@ -5,6 +5,8 @@ import { Location } from '@angular/common';
 
 import { JobInfo } from './jobinfo';
 import { JobInfoService } from './jobinfo.service';
+//cdimport { AppComponent } from './app.component';
+
 
 @Component( {
     moduleId: module.id,
@@ -16,6 +18,7 @@ export class JobInfoComponent {
     paramJobId: String;
     paramSystem: String;
 
+
     constructor(
       private JobInfoService: JobInfoService,
       private route: ActivatedRoute,
@@ -23,9 +26,12 @@ export class JobInfoComponent {
     ) {}
 
     ngOnInit(): void {
+      console.log("Load job")
       this.route.params.switchMap((params: Params) => {
         this.paramJobId = params['jobId'];
         this.paramSystem = params['system'];
+        this.JobInfoService.setSystem(params['system']);
+        this.JobInfoService.setJobId(params['jobId']);
         return this.JobInfoService.
           getJobInfo(null, null, params['jobId'], params['system'])
       })
