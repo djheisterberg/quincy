@@ -14,7 +14,6 @@ interface SysMap {
 
 @Injectable()
 export class JobInfoService {
-//  private baseURL = "http://localhost:4204/jobinfo-rest/jobinfo/rest";
     private systemSource = new Subject<string>();
     private jobIdSource = new Subject<string>();
 
@@ -33,17 +32,15 @@ export class JobInfoService {
     private baseURL = '';
 
     constructor( private http: Http ) {
-      this.baseURL = (window.location.origin);
+       this.baseURL = document.getElementsByTagName("base")[0].href;
     }
 
     getJobInfo( username: string, password: string, id: string, system: string ): Promise<JobInfo> {
-       //let url = this.baseURL + `?id=${id}&system=${system}`;
-       console.log("Fetching job info from db");
        let url = this.baseURL + `/job/${system}/${id}`
 
-        let headers = ( username && password ) ? new Headers( { 'Authorization': 'Basic ' + btoa( username + ":" + password ) }) : null;
-        let options = headers ? new RequestOptions( { headers: headers }) : null;
-        return this.http.get( url, options ).toPromise().then( response => {
+       let headers = ( username && password ) ? new Headers( { 'Authorization': 'Basic ' + btoa( username + ":" + password ) }) : null;
+       let options = headers ? new RequestOptions( { headers: headers }) : null;
+       return this.http.get( url, options ).toPromise().then( response => {
           let jobinfo: JobInfo = new JobInfo();
           let job: Job = response.json();
           let nodes = JobInfoService.getNodeList(job);
@@ -55,10 +52,11 @@ export class JobInfoService {
           jobinfo.gangliaURLs = JobInfoService.getGangliaUrls(job, nodes);
 
           return jobinfo;
-        }).catch( failedResponse => {
+
+       }).catch( failedResponse => {
           return null;
 
-        }) as Promise<JobInfo>;
+       }) as Promise<JobInfo>;
     }
 
     static getNodeList(job: Job): string[] {
