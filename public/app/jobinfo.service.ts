@@ -33,10 +33,14 @@ export class JobInfoService {
 
     constructor( private http: Http ) {
        this.baseURL = document.getElementsByTagName("base")[0].href;
+       if (this.baseURL.charAt(this.baseURL.length - 1) !== '/') {
+          this.baseURL = this.baseURL + "/";
+       }
     }
 
     getJobInfo( username: string, password: string, id: string, system: string ): Promise<JobInfo> {
-       let url = this.baseURL + `/job/${system}/${id}`
+       // baseURL always ends in '/'
+       let url = this.baseURL + `job/${system}/${id}`
 
        let headers = ( username && password ) ? new Headers( { 'Authorization': 'Basic ' + btoa( username + ":" + password ) }) : null;
        let options = headers ? new RequestOptions( { headers: headers }) : null;
