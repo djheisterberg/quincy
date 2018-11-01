@@ -18,7 +18,8 @@ export class AppComponent {
     systems = [
         { value: 'owens', display: 'Owens'},
         { value: 'oak', display: 'Oakley'},
-        { value: 'ruby', display: 'Ruby'}
+        { value: 'ruby', display: 'Ruby'},
+        { value: 'pitzer', display: 'Pitzer'}
     ]
     needsAuthentication = false;
     notFound = false;
@@ -42,7 +43,6 @@ export class AppComponent {
             jobId => {
                 this.jobId = jobId;
             }); 
-        //this.system = 'owens'
     }
 
     ngOnInit(): void {

@@ -28,7 +28,7 @@ export class JobInfoService {
       this.jobIdSource.next(jobId); 
     }
 
-    static sysMap: SysMap = { 'ruby': 'Ruby', 'owens': 'Owens', 'oak': 'Oakley'};
+    static sysMap: SysMap = { 'ruby': 'Ruby', 'owens': 'Owens', 'oak': 'Oakley', 'pitzer': 'Pitzer'};
     private baseURL = '';
 
     constructor( private http: Http ) {
